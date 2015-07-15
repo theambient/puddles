@@ -19,6 +19,8 @@ Matrix<int> read(const std::string & path)
 	std::string line;
 	std::getline(fin, line);
 
+	ENFORCE(!fin.fail());
+
 	auto m = Matrix<int>(width, height);
 
 	for(size_t j=0; j<height; ++j)
