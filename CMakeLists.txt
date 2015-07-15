@@ -30,9 +30,18 @@ macro(add_test_h name)
 	set_tests_properties(test${name} PROPERTIES TIMEOUT 5)
 endmacro()
 
+macro(add_test_i name)
+	add_test(NAME test_i_${name} COMMAND ${CMAKE_SOURCE_DIR}/tests/neg.sh $<TARGET_FILE:puddles> ${CMAKE_SOURCE_DIR}/tests/vectors/i${name}.in)
+	set_tests_properties(test${name} PROPERTIES TIMEOUT 5)
+endmacro()
 
 add_test_h(001)
 add_test_h(002)
 add_test_h(003)
 add_test_h(004)
 add_test_h(005)
+add_test_h(006)
+
+add_test_i(001)
+add_test_i(002)
+add_test_i(003)

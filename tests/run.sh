@@ -17,3 +17,5 @@ trap cleanup ERR
 $bin $2 $tmp
 
 cmake -E compare_files $tmp $reference
+
+cleanup
