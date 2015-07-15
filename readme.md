@@ -15,14 +15,14 @@ Notes
 Project uses git submodules. After clone do the following
 
 ```bash
-	git submodule init
-	git submodule update
+git submodule init
+git submodule update
 ```
 
 Every time you change branch (checkout) don't forget to update submodules.
 
 ```bash
-	git submodule update
+git submodule update
 ```
 
 Building
@@ -33,11 +33,57 @@ Cmake build system is used. Make sure you have cmake installed on you system. Fo
 To build the software do the following from project dir.
 
 ```bash
-	git submodule init
-	git submodule update
-	mkdir build
-	cd build
-	cmake ..
-	make
-	make test
+git submodule init
+git submodule update
+mkdir build
+cd build
+cmake ..
+make
+make test
 ```
+
+Usage
+------
+
+After build completes you've got an executable `puddles`.
+It's usage is simple: `puddles <file.in> <file.out>`
+
+Upon success tool return zero.
+
+`<file.in>` a file of following structure:
+
+```
+<height> <width>
+<2D-array of non-negative numbers>
+```
+
+sample:
+
+```
+4 4
+0 2 1 0
+2 2 2 0
+2 0 1 2
+2 2 2 1
+```
+
+As a result you get `<file.out>` as follows
+
+```
+0000
+0000
+0##0
+0000
+```
+
+where `#` denotes places of puddles.
+
+Algorithm
+----------
+
+The algo is very simple. At every point we try to find a path to the edge using a kind of floodfill algorithm to see can we leak from that point or not.
+
+The barrier for floodfill algorithm is a point with a height greater or equal then starting point value.
+
+4-connectivity is assumed when finding barieirs.
+
