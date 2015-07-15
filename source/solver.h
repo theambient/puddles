@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <iostream>
 #include "matrix.h"
 
 class Solver
@@ -11,7 +12,7 @@ class Solver
 
 	bool _can_escape(size_t i, size_t j, int val)
 	{
-		std::fill(_puddles.begin(), _puddles.end(), false);
+		std::fill(_visited.begin(), _visited.end(), false);
 
 		return _can_escape_r(i, j, val);
 	}
@@ -24,18 +25,28 @@ class Solver
 
 		_visited(i, j) = true;
 
-		bool left = false;
-		bool right = false;
-		bool up = false;
-		bool down = false;
+		bool r = false;
+		r = r || _can_escape_r(i-1, j, val);
+		r = r || _can_escape_r(i+1, j, val);
+		r = r || _can_escape_r(i, j+1, val);
+		r = r || _can_escape_r(i, j-1, val);
 
-		left = _can_escape_r(i-1, j, val);
-		right = _can_escape_r(i+1, j, val);
-		up = _can_escape_r(i, j+1, val);
-		down = _can_escape_r(i, j-1, val);
-
-		return (left || up || down || right);
+		return r;
 	}
+
+	void _print_puddles()
+	{
+		for(size_t j=0; j<_m.height(); ++j)
+		{
+			for(size_t i=0; i<_m.width(); ++i)
+			{
+				char c = _puddles(i,j)?'#':'0';
+				std::cout << c;
+			}
+			std::cout << std::endl;
+		}
+	}
+
 public:
 
 	Solver(const Matrix<int> & m):
@@ -52,7 +63,8 @@ public:
 		{
 			for(size_t j=0; j<_m.height(); ++j)
 			{
-				_puddles(i, j) = _can_escape(i, j, _m(i,j));
+				// _print_puddles();
+				_puddles(i, j) = !_can_escape(i, j, _m(i,j));
 			}
 		}
 

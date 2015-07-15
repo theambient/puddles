@@ -21,7 +21,7 @@ Matrix<int> read(const std::string & path)
 
 	auto m = Matrix<int>(width, height);
 
-	for(size_t i=0; i<width; ++i)
+	for(size_t j=0; j<height; ++j)
 	{
 		std::getline(fin, line);
 
@@ -30,7 +30,7 @@ Matrix<int> read(const std::string & path)
 		std::istringstream ist(line);
 		ENFORCE(ist.good());
 
-		for(size_t j=0; j<height; ++j)
+		for(size_t i=0; i<width; ++i)
 		{
 			int val;
 			ist >> val;
@@ -53,9 +53,9 @@ void write(const Matrix<bool> & m, const std::string & path)
 {
 	std::ofstream fout(path);
 
-	for(size_t i=0; i<m.width(); ++i)
+	for(size_t j=0; j<m.height(); ++j)
 	{
-		for(size_t j=0; j<m.height(); ++j)
+		for(size_t i=0; i<m.width(); ++i)
 		{
 			char c = m(i,j)?'#':'0';
 			fout << c;
