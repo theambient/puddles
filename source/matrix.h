@@ -48,7 +48,7 @@ public:
 		assert(i < _width);
 		assert(j < _height);
 
-		return _v[i * _width + j];
+		return _v[i * _height + j];
 	}
 
 	const T & operator()(size_t i, size_t j) const
@@ -56,7 +56,7 @@ public:
 		assert(i < _width);
 		assert(j < _height);
 
-		return _v[i * _width + j];
+		return _v[i * _height + j];
 	}
 
 	iterator begin() { return _v.begin();}
