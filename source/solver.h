@@ -53,6 +53,12 @@ class Solver
 			for(size_t j=0; j<_m.height(); ++j)
 			{
 				// _print_puddles();
+
+				if(_m(i,j) + _puddles(i,j) >= _watermark)
+				{
+					continue;
+				}
+
 				bool r = _can_escape(i, j);
 				if(!r)
 				{
@@ -106,7 +112,7 @@ public:
 	{
 		std::vector<int> levels(_m.height() * _m.width());
 		std::copy(_m.cbegin(), _m.cend(), levels.begin());
-		std::sort(levels.begin(), levels.end());
+		std::sort(levels.begin(), levels.end(), [](int l, int r){return l > r;});
 		auto last = std::unique(levels.begin(), levels.end());
 
 		for(auto it = levels.begin(); it != last; ++it)
