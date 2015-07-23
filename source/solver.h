@@ -9,6 +9,7 @@ class Solver
 {
 	int _watermark;
 	Matrix<bool>  _visited;
+	Matrix<bool>  _escapable;
 	Matrix<int>  _puddles;
 	const Matrix<int> & _m;
 
@@ -30,6 +31,7 @@ class Solver
 	bool _can_escape_r(size_t i, size_t j)
 	{
 		if(i == -1 || i == _m.width() || j == -1 || j == _m.height()) return true;
+		if(_escapable(i,j)) return true;
 		if(_visited(i, j)) return false;
 		if(_watermark <= _m(i, j)) return false;
 
@@ -41,12 +43,14 @@ class Solver
 		r = r || _can_escape_r(i, j+1);
 		r = r || _can_escape_r(i, j-1);
 
+		_escapable(i,j) |= r;
+
 		return r;
 	}
 
 	void _find_binary_puddles()
 	{
-		std::fill(_visited.begin(), _visited.end(), false);
+		std::fill(_escapable.begin(), _escapable.end(), false);
 
 		for(size_t i=0; i<_m.width(); ++i)
 		{
@@ -103,7 +107,8 @@ public:
 	Solver(const Matrix<int> & m):
 		_m(m),
 		_visited(m.width(), m.height()),
-		_puddles(m.width(), m.height())
+		_puddles(m.width(), m.height()),
+		_escapable(m.width(), m.height())
 	{
 		std::fill(_puddles.begin(), _puddles.end(), 0);
 	}
