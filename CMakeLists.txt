@@ -45,6 +45,7 @@ add_test_h(005)
 add_test_h(006)
 add_test_h(007)
 add_test_h(008)
+add_test_h(009)
 
 add_test_i(001)
 add_test_i(002)
