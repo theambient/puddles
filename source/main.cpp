@@ -51,7 +51,7 @@ Matrix<int> read(const std::string & path)
 }
 
 
-void write(const Matrix<bool> & m, const std::string & path)
+void write(const Matrix<int> & m, const std::string & path)
 {
 	std::ofstream fout(path);
 
@@ -59,8 +59,12 @@ void write(const Matrix<bool> & m, const std::string & path)
 	{
 		for(size_t i=0; i<m.width(); ++i)
 		{
-			char c = m(i,j)?'#':'0';
-			fout << c;
+			// char c = m(i,j)?'#':'0';
+			fout << m(i,j);
+			if(i+1 != m.width())
+			{
+				fout << ' ';
+			}
 		}
 
 		fout << std::endl;
