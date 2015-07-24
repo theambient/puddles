@@ -17,6 +17,10 @@ add_executable(puddles
 	${SOURCES}
 )
 
+add_executable(generator
+	tests/generator.cpp
+)
+
 target_include_directories(puddles PUBLIC submodules/spdlog/include)
 
 target_link_libraries(puddles ${LIBS})
