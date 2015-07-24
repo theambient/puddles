@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 2.8)
 
 project(puddles)
 
@@ -46,6 +46,8 @@ add_test_h(006)
 add_test_h(007)
 add_test_h(008)
 add_test_h(009)
+
+add_test(NAME test_exit_1 COMMAND $<TARGET_FILE:puddles> ${CMAKE_SOURCE_DIR}/tests/vectors/10_17.in /dev/null)
 
 add_test_i(001)
 add_test_i(002)
